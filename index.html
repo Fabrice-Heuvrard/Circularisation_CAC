@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sélection circularisation FEC</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Circularisation clients / fournisseurs depuis FEC</h1>
+      <p class="intro">
+        Importez un fichier FEC, puis choisissez automatiquement les tiers à circulariser en
+        fonction des mouvements et soldes.
+      </p>
+
+      <section class="card controls">
+        <label class="file-picker">
+          <span>Fichier FEC (.txt/.csv)</span>
+          <input type="file" id="fecFile" accept=".txt,.csv,.tsv" />
+        </label>
+
+        <div class="inline-fields">
+          <label>
+            % de tiers à sélectionner (mode défaut)
+            <input type="number" id="targetPercent" min="1" max="100" value="20" />
+          </label>
+          <button id="analyzeBtn" disabled>Analyser le FEC</button>
+        </div>
+
+        <p class="hint">
+          Règles appliquées : <strong>clients</strong> triés sur mouvements et soldes
+          <strong>débiteurs</strong> ; <strong>fournisseurs</strong> triés sur mouvements et
+          soldes <strong>créditeurs</strong>.
+        </p>
+      </section>
+
+      <section id="status" class="status"></section>
+
+      <section class="grid" id="results" hidden>
+        <article class="card">
+          <h2>Clients (comptes 411*)</h2>
+          <div id="clientsSummary" class="summary"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sélection</th>
+                  <th>Compte</th>
+                  <th>Libellé</th>
+                  <th>Mouvements débiteurs</th>
+                  <th>Solde débiteur</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody id="clientsBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Fournisseurs (comptes 401*)</h2>
+          <div id="suppliersSummary" class="summary"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sélection</th>
+                  <th>Compte</th>
+                  <th>Libellé</th>
+                  <th>Mouvements créditeurs</th>
+                  <th>Solde créditeur</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody id="suppliersBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
